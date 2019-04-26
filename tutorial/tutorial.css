@@ -1,0 +1,111 @@
+body {
+  margin: 0px;
+  padding: 1em;
+  cursor: url("../images/cursors/pointer.png"), auto;
+}
+h1 {
+  font: 30px Trebuchet MS;
+}
+h2 {
+  font: 40px Verdana;
+}
+p {
+  display: block;
+  font: 30px Verdana;
+}
+button {
+  font: 25px Verdana;
+}
+#buttons {
+  padding-top: 1em;
+  position: relative;
+  pointer-events: auto;
+  display: none;
+}
+
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+textarea{
+  position: absolute;
+  top: 1em; left: 1%;
+  padding:0.5em;
+  height: 90vh;
+  width: 45%;
+  resize: none;
+  font: 25px courier new;
+}
+
+.typing .image{
+  position: absolute;
+  bottom: 3em;
+}
+#caption{
+  bottom: -2.5em;
+  width: 100%;
+  font: 18px;
+}
+img{
+  width: 75%;
+}
+
+.right_half {
+  position: absolute;
+  top: 1em; right: 1%;
+  padding: 1em;
+  height: 90vh;
+  width: 48%;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+.moving {
+  position: absolute;
+  top: 0; right:0; left:0;
+  z-index: 1;
+  pointer-events: none;
+  text-align: center;
+}
+
+#cursor{
+    position: absolute;
+    transition: transform 1s ease;
+    opacity: 0;
+    height: 30px; width: 30px;
+}
+
+/* animation credit to Daniel Eden */
+.tada { /*was animated, changed to tada */
+  animation-name: tada;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes tada {
+  from {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  10%, 20% {
+    -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%, 60%, 80% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  to {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}

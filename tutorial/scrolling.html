@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		body {
+		  width:95vw;
+		  height:90vh;
+		  /*cursor: url("../images/cursors/pointer_big.png"), auto;*/
+		}
+		::-webkit-scrollbar {
+		  width: 40px;
+		  height: 40px;
+		}
+		::-webkit-scrollbar-track {
+		  background: #f1f1f1; 
+		}
+		::-webkit-scrollbar-thumb {
+		  background: #555; 
+		}
+		::-webkit-scrollbar-thumb:hover {
+		  background: #555; 
+		}
+		::-webkit-scrollbar-button:single-button {
+		  background-color: #f1f1f1;
+		  display: block;
+		  border-style: solid;
+		  height: 40px;
+		  width: 40px;
+		}
+		::-webkit-scrollbar-button:single-button:vertical:decrement {
+		  border-width: 0 20px 20px 20px;
+		  border-color: transparent transparent #555555 transparent;
+		}
+		::-webkit-scrollbar-button:single-button:vertical:increment {
+		  border-width: 20px 20px 0 20px;
+		  border-color: #555555 transparent transparent transparent;
+		}
+		::-webkit-scrollbar-button:single-button:horizontal:increment {
+		  border-width: 20px 0 20px 20px;
+		  border-color: transparent transparent transparent #555555;
+		}
+		::-webkit-scrollbar-button:single-button:horizontal:decrement {
+		  border-width: 20px 20px 20px 0;
+		  border-color: transparent #555555 transparent transparent;
+		}
+</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<script>
+		const canvas = document.getElementById('canvas');
+		canvas.width = window.innerWidth * 2;
+		canvas.height = window.innerHeight * 2.5;
+		const ctx = canvas.getContext('2d'); 
+
+		//  Math.ceil(Math.random()*10) * 36 
+
+		for (i=0; i<canvas.width/150; i++){
+			for (j=0; j<canvas.height/150; j++){
+				ctx.fillStyle = "hsl("+ i*20 + ",80%,"+(100-(j*10))+"%)";
+				ctx.fillRect(i*150, j*150, 140, 140);
+			}
+		}
+
+	</script>
+</body>
+</html>
