@@ -2,8 +2,8 @@ textarea = document.getElementsByTagName('textarea')[0];
 body = document.getElementsByTagName('body')[0];
 const title_text = document.getElementById('title_text');
 const help_text = document.getElementById('help_text');
-const buttons = document.getElementById('buttons');
 const error_text = document.getElementById('error_text');
+const buttons = document.getElementById('buttons');
 const keyboard_img = document.getElementById('keyboard_img');
 const img_caption = document.getElementById('img_caption');
 var animating_error = false;
@@ -18,6 +18,8 @@ function practice_clicked(){
 	stage_success = false;
 }
 
+
+//TODO: FIX ANIMATIONS
 function cursorEmphasis(x, y, ex, ey){
 	var cursor = document.getElementById("cursor");
 	cursor.setAttribute("style", "top:"+ ey +"px; left:" + ex +"px; opacity: 0.7;");
@@ -65,9 +67,24 @@ function nextStage(){
 	if(stage.onStart) stage.onStart();
 }
 
+//TODO: add help images??
+function checkText(criteria){
+	if (Object.entries(criteria).every(
+		(each)=>{
+			console.log(each);
+			if (!each[1]){
+				errorText("you need a " + (each[0]=="text"?"bit more":"") + each[0]);
+			}
+			else return true;
+		})){
+		nextStage();
+	}
+}
+
 //TODO: ctrl keys - what are they?
 //TODO: how to turn on caps lock
 //TODO: link desktop to typing practice (external)
+//TODO: quotes
 const STAGES = {
 	start: {
 		next: "click",
@@ -143,16 +160,48 @@ const STAGES = {
 	}, sentence: {
 		image: "keyboard.png",
 		title: "Write a sentence",
-		help_text: "Use everything you've learned" ,
+		help_text: "Use shift, space, backspace, and punctuation" ,
 		next: "number",
 		onStart: function(){
-			setTimeout(function(){
-				nextStage();
-				//TODO: check that all criteria met, wraps over one line
-				errorText("keep typing more");
-			}, 10000);
+			var score = {
+				capital: false,
+				letter: false,
+				space: false,
+				punctuation: false,
+				backspace: false,
+				text: false,
+			}
+			//TODO: should num letters be greater than 20? Or total characters greater than 30?
+			var letters = 0;
+			document.addEventListener('keydown', (event) => {
+				letters +=1;
+				if(letters > 10) score.text = true;
+				var keyname = event.key;
+				if(keyname==keyname.match("[A-Z]")){
+					score.capital = true;
+				}
+				if(keyname==keyname.match("[a-z]")){
+					score.letter = true;
+				}
+				switch(keyname){
+					case " ":
+						score.space = true;
+						break;
+					case "Backspace":
+						score.backspace = true;
+						break;
+					case ".":
+					case "?":
+					case ",":
+					case "!":
+					case ":":
+					case ";":
+						score.punctuation = true;
+					default:
+				}
+				checkText(score);
+			}, true);
 		},
-		// TODO: different image?
 	}, number: {
 		image: "numbers.png",
 		title: "Numbers",
@@ -173,7 +222,7 @@ const STAGES = {
 		help_text: "Click at the begining of the text" ,
 		next: "title",
 		onStart: function(){
-			var coordinates;
+			var coordinates = {x:0, y:0};
 			var mouselisten = document.addEventListener('mousemove', function(e){
 				coordinates = {x: e.clientX, y: e.clientY};
 			});
@@ -181,8 +230,8 @@ const STAGES = {
 				if(textarea.selectionStart != textarea.selectionEnd)
 					errorText("Do not drag, that will highlight text.");
 				else if(textarea.selectionStart == 0){
-					this.removeEventListener('mousemove',arguments.callee,false);
-					this.removeEventListener('mousemove',mouselisten,false);
+					this.removeEventListener('click',arguments.callee);
+					this.removeEventListener('mousemove',mouselisten);
 					nextStage();
 				} else{
 					errorText("Click at the BEGINNING");
@@ -197,20 +246,34 @@ const STAGES = {
 		// TODO: gif
 		// TODO: explain cursor shape
 		// TODO: move cursor with arrow keys
-
-
 	}, title: {
 		title: "Type a Title",
-		help_text: "with capitol letters and a new line" ,
+		help_text: "Use capital letters and end with a new line" ,
 		next: "highlight",
 		onStart: function(){
-			setTimeout(function(){
-				nextStage();
-				//TODO: check that they end with a line break, use capital letters
-			}, 10000);
+			var score = {
+				capital: false,
+				letter: false,
+				enter: false,
+				text: false,
+			}
+			var letters = 0;
+			document.addEventListener('keydown', (event) => {
+				letters +=1;
+				if(letters > 5) score.text = true;
+				var keyname = event.key;
+				if(keyname==keyname.match("[A-Z]")){
+					score.capital = true;
+				}
+				if(keyname==keyname.match("[a-z]")){
+					score.letter = true;
+				}
+				if(keyname=="Enter"){
+					score.enter = true;
+				}
+				checkText(score);
+			}, true);
 		},
-		// TODO: gif
-
 	}, highlight: {
 		title: "Highlight text",
 		help_text: "Click and drag on text to select it" ,
@@ -267,16 +330,16 @@ const STAGES = {
 	// TODO: scrolling again
 }
 
-var stage = STAGES.enter;
+var stage = STAGES.period;
 nextStage();
 var success = false;
 //TODO: add a variable that keeps track of what's been written on this itteration?
 
 //error: clicking a bunch of keys randomly
 document.addEventListener('keyup', (event) => {
-	if(stage.shifting && !event.shiftKey){
+	/*if(stage.shifting && !event.shiftKey){
 		errorText("Keep holding down shift!!");
-	}
+	}*/  //THIS has errors before we want the error to pop up.
 	/*if(!success){ /// and stages.hold?
 		errorText("Hold down the key");
 	}*/
@@ -328,6 +391,7 @@ document.addEventListener('keydown', (event) => {
 			}
 			//TODO: add picture of typical keys with shift values
 			break;
+			//TODO; just typing numbers wins everything
 		case STAGES.number:
 			success = (keyname == keyname.match("[0-9]"));
 			break;

@@ -15,7 +15,7 @@ const buttons = document.getElementById('buttons');
 
 buttons.style.display = "none"
 function continue_clicked(){
-	window.location.replace("keyboard.html");
+	window.location.replace("typing.html");
 }
 function practice_clicked(){
 	buttons.style.display = "none"

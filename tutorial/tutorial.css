@@ -1,7 +1,7 @@
 body {
   margin: 0px;
-  padding: 1em;
-  cursor: url("../images/cursors/pointer.png"), auto;
+  padding: 10px;
+/*  cursor: url("../images/cursors/pointer.png"), auto; */
 }
 h1 {
   font: 30px Trebuchet MS;
@@ -31,15 +31,9 @@ canvas {
   z-index: 0;
 }
 textarea{
-  position: absolute;
-  top: 1em; left: 1%;
-  padding:0.5em;
-  height: 90vh;
-  width: 45%;
   resize: none;
   font: 25px courier new;
 }
-
 .typing .image{
   position: absolute;
   bottom: 3em;
@@ -55,14 +49,20 @@ img{
 
 .right_half {
   position: absolute;
-  top: 1em; right: 1%;
-  padding: 1em;
+  top: 10px; right: 1%;
   height: 90vh;
   width: 48%;
   text-align: center;
   overflow: hidden;
   z-index: 1;
   pointer-events: none;
+}
+.left_half {
+  position: absolute;
+  top: 1em; left: 1%;
+  padding:0.5em;
+  height: 90vh;
+  width: 45%;
 }
 .moving {
   position: absolute;
