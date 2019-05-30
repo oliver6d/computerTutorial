@@ -59,6 +59,7 @@
 		for (i=0; i<canvas.width/150; i++){
 			for (j=0; j<canvas.height/150; j++){
 				ctx.fillStyle = "hsl("+ i*20 + ",80%,"+(100-(j*10))+"%)";
+				console.log(i*20, (100-(j*10)));
 				ctx.fillRect(i*150, j*150, 140, 140);
 			}
 		}

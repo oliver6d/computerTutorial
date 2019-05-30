@@ -8,9 +8,11 @@ const keyboard_img = document.getElementById('keyboard_img');
 const img_caption = document.getElementById('img_caption');
 var animating_error = false;
 
-function continue_clicked(){
-	window.location.replace("keyboard.html");
-}
+//IDEA: They have to type a sentence, highlighting letters as they type.  Explain when they pause.
+//IDEA: list of lessons, they choose which one.
+//IDEA: progress bar
+//IDEA: take a break when people would rather type 
+
 function practice_clicked(){
 	buttons.style.display = "none"
 	stage = STAGES.single_click;
@@ -18,18 +20,15 @@ function practice_clicked(){
 	stage_success = false;
 }
 
-
-//TODO: FIX ANIMATIONS
 function cursorEmphasis(x, y, ex, ey){
 	var cursor = document.getElementById("cursor");
-	cursor.setAttribute("style", "top:"+ ey +"px; left:" + ex +"px; opacity: 0.7;");
+	cursor.setAttribute("style", "top:"+ ey +"px; left:" + ex +"px; opacity: 1;");
 	cursor.style.transform = 'translate('+(x-ex)+'px, '+(y-ey)+'px)';
 	setTimeout(function(){	
-		cursor.setAttribute("style", "top:"+ y +"px; left:" + x +"px; opacity: 1; height: 40px");
 		setTimeout(function(){
-			cursor.setAttribute("style", "top:-20px; left:-20px; opacity: 0;");
 			cursor.style.transform = '';
-		}, 1500);
+			cursor.setAttribute("style", "opacity: 0;");
+		}, 1000);
 	}, 1000);
 }
 
@@ -39,10 +38,8 @@ function changeText(new_title, new_help, image, caption){
 	error_text.innerHTML = "";
 	keyboard_img.src = "";
 	img_caption.innerHTML = "";
-
-
 	if(image != undefined){
-		keyboard_img.src = "../images/typing/" + image;
+		keyboard_img.src = image;
 	}
 	if(caption != undefined){
 		img_caption.innerHTML = caption;
@@ -56,7 +53,7 @@ function errorText(new_error){
 		error_text.classList.add("tada");
 		setTimeout(function(){ animating_error = false;
 			error_text.classList.remove("tada");
-		}, 600);
+		}, 1000);
 	}
 }
 
@@ -67,7 +64,6 @@ function nextStage(){
 	if(stage.onStart) stage.onStart();
 }
 
-//TODO: add help images??
 function checkText(criteria){
 	if (Object.entries(criteria).every(
 		(each)=>{
@@ -81,16 +77,12 @@ function checkText(criteria){
 	}
 }
 
-//TODO: ctrl keys - what are they?
-//TODO: how to turn on caps lock
-//TODO: link desktop to typing practice (external)
-//TODO: quotes
 const STAGES = {
 	start: {
 		next: "click",
 	},
 	click: {
-		image: "keyboard.png",
+		image: "../images/typing/keyboard.png",
 		title: "Let's try typing",
 		help_text: "click in the text box to start",
 		next: "letters",
@@ -100,67 +92,63 @@ const STAGES = {
 				nextStage();
 			});
 		},
-		// TODO: gif moving cursor
 	}, letters: {
-		image: "letters.png",
+		image: "../images/typing/letters.png",
 		title: "Typing letters",
 		help_text: "Press any key with a letter." ,
 		next:"space",
 	}, space: {
-		image: "space.png",
+		image: "../images/typing/space.png",
 		title: "Typing a space",
 		help_text: "Use your thumb to press down on the space bar",
-		next: "hold",
-	}, hold: {
-		image: "letters.png",
-		title: "Typing repeated letters",
-		help_text: "Now hold down a letter key." ,
 		next: "backspace",
-		// tries typing same letter (not repeating)
 	}, backspace: {
-		image: "backspace.png",
+		image: "../images/typing/backspace.png",
 		title: "Removing letters",
 		help_text: "Press \"backspace\" to remove characters." ,
 		next: "shift",
+
+//TODO: explain shift, gif
+
 	}, shift: {
-		image: "shift.png",
+		image: "../images/typing/shift.png",
 		title: "Capital letters (a -> A)",
 		help_text: "Hold down the \"shift\" key" ,
 		caption: "(either shift key works, choose one)",
 		next: "shift2",
-		// TODO: gif
-		// TODO: time how long they hold it down after
 	}, shift2: {
-		image: "shift.png",
+		image: "../images/typing/shift.png",
 		title: "Capital letters (a -> A)",
 		help_text: "Keep holding down the \"shift\" key and tap on any letter." ,
 		caption: "(either shift key works, choose one)",
 		shifting: true,
 		next: "period",
-		// TODO: gif?
 	}, period: {
-		image: "period.png",
+		image: "../images/typing/period.png",
 		title: "Punctuation",
 		help_text: "Press the period key '.'" ,
 		next: "comma",
 	}, comma: {
-		image: "comma.png",
+		image: "../images/typing/comma.png",
 		title: "Punctuation",
 		help_text: "Press the comma key ','" ,
 		next: "question",
 	}, question: {
-		image: "question.png",
-		title: "Punctuation",
-		help_text: "Press the key with the / and ?" ,
+		image: "../images/typing/question.png",
+		title: "Advanced Punctuation",
+		help_text: "Hold shift and then press ?" ,
 		shifting: true,
-		next: "sentence",
-		// TODO: "hold down the shift key to get more punctuation"
+		next: "number",
+
+		// TODO: dialog? "hold down the shift key to get more punctuation"
 		// TODO: error, keep holding down the shift key
 		// TODO: if /, prompt for ?     if ? prompt for /
+		// TODO: insert picture of key
+
 	}, sentence: {
-		image: "keyboard.png",
+		image: "../images/typing/keyboard.png",
 		title: "Write a sentence",
-		help_text: "Use shift, space, backspace, and punctuation" ,
+		help_text: "Use shift, space, backspace, <br> and punctuation" ,
 		next: "number",
 		onStart: function(){
 			var score = {
@@ -170,10 +158,11 @@ const STAGES = {
 				punctuation: false,
 				backspace: false,
 				text: false,
+				enter: true,
 			}
-			//TODO: should num letters be greater than 20? Or total characters greater than 30?
 			var letters = 0;
-			document.addEventListener('keydown', (event) => {
+			document.addEventListener('keydown', function() {
+				//TOFIX: error for what is missing
 				letters +=1;
 				if(letters > 10) score.text = true;
 				var keyname = event.key;
@@ -190,6 +179,9 @@ const STAGES = {
 					case "Backspace":
 						score.backspace = true;
 						break;
+					case "Enter":
+						score.enter = true;
+						break;
 					case ".":
 					case "?":
 					case ",":
@@ -199,30 +191,66 @@ const STAGES = {
 						score.punctuation = true;
 					default:
 				}
-				checkText(score);
+				if(checkText(score)){
+					this.removeEventListener('keydown',arguments.callee,false);
+				};
 			}, true);
 		},
 	}, number: {
-		image: "numbers.png",
+		image: "../images/typing/numbers.png",
 		title: "Numbers",
 		help_text: "Press a number key." ,
 		next: "enter",
 	}, enter: {
-		image: "enter.png",
+		image: "../images/typing/enter.png",
 		title: "New line",
 		help_text: "Click the 'enter' or 'return' key on the keyboard" ,
 		next: "tab",
 	}, tab: {
-		image: "tab.png",
+		image: "../images/typing/tab.png",
 		title: "Indent line",
 		help_text: "To add multiple spaces, press the 'tab' key" ,
+		next: "highlight",
+
+//TODO: explain, gif with highlighting text, copy, click, paste
+
+	}, highlight: {
+		image: "../images/trackpad/click_drag.gif",
+		title: "Highlight text",
+		help_text: "Click and drag on text to select it" ,
+		next: "copy",
+		onStart: function(){
+			document.addEventListener('click', function(){
+		//TODO: error, not clicking where text is
+				if (textarea.selectionEnd - textarea.selectionStart > 3){
+					this.removeEventListener('click',arguments.callee,false);
+					nextStage();
+				} else if (textarea.selectionStart == textarea.selectionEnd) {
+					errorText("Move the mouse while clicking");
+				}
+			});
+		},
+	}, copy: {
+		image: "../images/typing/copy.png",
+		title: "Copy text",
+		help_text: "The 'ctrl' key is used to do actions on highlighted text.  Hold down ctrl and press 'c'" ,
 		next: "cursor",
+		onStart: function(){
+			var listen = textarea.addEventListener('copy', function(){
+				if(textarea.selectionStart != textarea.selectionEnd){
+					this.removeEventListener('copy',arguments.callee,false);
+					nextStage();
+				} else{
+					errorText("Your text must still be highlighted!");
+				}
+			});
+		},
 	}, cursor: {
 		title: "Move cursor",
-		help_text: "Click at the begining of the text" ,
-		next: "title",
+		help_text: "Click at the start of your text, so that we can insert text there." ,
+		next: "paste",
 		onStart: function(){
-			var coordinates = {x:0, y:0};
+			var coordinates = {x:500, y:500};
 			var mouselisten = document.addEventListener('mousemove', function(e){
 				coordinates = {x: e.clientX, y: e.clientY};
 			});
@@ -235,91 +263,38 @@ const STAGES = {
 					nextStage();
 				} else{
 					errorText("Click at the BEGINNING");
-					cursorEmphasis(20,30,coordinates.x, coordinates.y);
+					cursorEmphasis(20,50,coordinates.x, coordinates.y);
 				}
 
 			});
 			setTimeout(function(){
-				cursorEmphasis(20,30,coordinates.x, coordinates.y);
+				cursorEmphasis(20,50,coordinates.x, coordinates.y);
 			}, 1000);
 		},
-		// TODO: gif
-		// TODO: explain cursor shape
-		// TODO: move cursor with arrow keys
-	}, title: {
-		title: "Type a Title",
-		help_text: "Use capital letters and end with a new line" ,
-		next: "highlight",
-		onStart: function(){
-			var score = {
-				capital: false,
-				letter: false,
-				enter: false,
-				text: false,
-			}
-			var letters = 0;
-			document.addEventListener('keydown', (event) => {
-				letters +=1;
-				if(letters > 5) score.text = true;
-				var keyname = event.key;
-				if(keyname==keyname.match("[A-Z]")){
-					score.capital = true;
-				}
-				if(keyname==keyname.match("[a-z]")){
-					score.letter = true;
-				}
-				if(keyname=="Enter"){
-					score.enter = true;
-				}
-				checkText(score);
-			}, true);
-		},
-	}, highlight: {
-		title: "Highlight text",
-		help_text: "Click and drag on text to select it" ,
-		next: "copy",
-		onStart: function(){
-			var listen = textarea.addEventListener('click', function(){
-				if(textarea.selectionStart - textarea.selectionEnd > 3){
-					this.removeEventListener('click',arguments.callee,false);
-					nextStage();
-				}
-			});
-		},
-		// TODO: gif
-	}, copy: {
-		image: "copy.png",
-		title: "Copy text",
-		help_text: "The 'ctrl' key is used to do actions on highlighted text.  Hold down ctrl and press 'c'" ,
-		next: "paste",
-		onStart: function(){
-			var listen = textarea.addEventListener('copy', function(){
-				if(textarea.selectionStart != textarea.selectionEnd){
-					this.removeEventListener('click',arguments.callee,false);
-					nextStage();
-				} else{
-					errorText("Your text must still be highlighted!");
-				}
-			});
-		},
 	}, paste: {
-		image: "paste.png",
+		image: "../images/typing/paste.png",
 		title: "Paste text",
-		help_text: "Now click somewhere else.  Then, hold down ctrl and press 'p'" ,
-		next: "undo",
+		help_text: "Hold down ctrl and press 'v'" ,
+		next: "last",
 		onStart: function(){
 			var listen = textarea.addEventListener('paste', function(){
-				this.removeEventListener('click',arguments.callee,false);
+				this.removeEventListener('paste',arguments.callee,false);
 				nextStage();
 			});
 		},
-		// TODO: check that holding down ctrl, check that new location is selected
-	}, undo: {
-		image: "undo.png",
+	}, 
+	//TODO: should enter go here?
+	undo: {
+		image: "../images/typing/undo.png",
 		title: "Undo",
 		help_text: "Now, hold down 'ctrl' and press 'z'" ,
 		next: "last",
-		// TODO: check that holding down ctrl, check that new location is selected
+		onStart: function(){
+			var listen = textarea.addEventListener('undo', function(){
+				this.removeEventListener('undo',arguments.callee,false);
+				nextStage();
+			});
+		},
 	}, last: {
 		title: "Great job!",
 		help_text: "Now click on the \"next\" button to continue, or \"practice\" to restart." ,
@@ -327,27 +302,23 @@ const STAGES = {
 			buttons.style.display = "inline";
 		},
 	}
-	// TODO: scrolling again
+
+//TODO: undo
 }
 
-var stage = STAGES.period;
+var stage = STAGES.start;
 nextStage();
 var success = false;
-//TODO: add a variable that keeps track of what's been written on this itteration?
 
-//error: clicking a bunch of keys randomly
 document.addEventListener('keyup', (event) => {
-	/*if(stage.shifting && !event.shiftKey){
+	if(stage == STAGES.shift2 && !event.shiftKey){
 		errorText("Keep holding down shift!!");
-	}*/  //THIS has errors before we want the error to pop up.
-	/*if(!success){ /// and stages.hold?
-		errorText("Hold down the key");
-	}*/
+	}
 }, true);
 document.addEventListener('keydown', (event) => {
 	var keyname = event.key;
-	if (event.repeat && stage!=STAGES.hold && stage!=STAGES.backspace){
-		errorText("Tap keys shortly. Holding them down will make more letters.");
+	if (event.repeat && keyname == keyname.match("[A-Za-z]")){
+		errorText("Tap keys shortly to avoid repeating letters");
 	}
 	switch(stage){
 		case STAGES.keys:
@@ -357,16 +328,12 @@ document.addEventListener('keydown', (event) => {
 			success = (keyname == keyname.match("[A-Za-z]"));
 			break;
 		case STAGES.space:
-			success = (keyname == " ");	//why was this using regex??
-			break;
-		case STAGES.hold:
-			success = (event.repeat);
+			success = (keyname == " ");
 			break;
 		case STAGES.backspace:
 			success = (keyname == "Backspace");
 			break;
 		case STAGES.shift:
-		// check if caps lock is on
 			success = (event.shiftKey);
 			break;
 		case STAGES.shift2:
@@ -377,11 +344,17 @@ document.addEventListener('keydown', (event) => {
 			if(keyname == ">"){
 				errorText("Do not use shift");
 			}
+			if(keyname == ","){
+				errorText("That is a comma, period is the key next to comma");
+			}
 			break;
 		case STAGES.comma:
 			success = (keyname == ",");
 			if(keyname == "<"){
 				errorText("Do not use shift");
+			}
+			if(keyname == "."){
+				errorText("That is a period, comma is the key next to period");
 			}
 			break;
 		case STAGES.question:
@@ -391,26 +364,21 @@ document.addEventListener('keydown', (event) => {
 			}
 			//TODO: add picture of typical keys with shift values
 			break;
-			//TODO; just typing numbers wins everything
 		case STAGES.number:
 			success = (keyname == keyname.match("[0-9]"));
 			break;
 		case STAGES.enter:
-		// TODO: check to see if a full line has been typed yet (wrapped)
-		// more than 50 characters -> wrapped
 			success = (keyname == "Enter");
 			break;
 		case STAGES.tab:
 			success = (keyname == "Tab");
 			break;
-		//TODO: tab just leaves the textbox
-
-
-		//case STAGES.highlight:
-		//case STAGES.copy:
-		//case STAGES.paste:
+		case STAGES.copy:
+		case STAGES.paste:
 		case STAGES.undo:
-			success = (event.keycode == 90 && event.ctrlKey);
+			if (!event.ctrlKey){
+				errorText("You must hold down ctrl");
+			}
 			break;
 		//case STAGES.arrows:
 			// "Down", "ArrowDown"
@@ -441,11 +409,11 @@ textarea.onkeydown = function(event) {
         return false;
     }
     if(event.getModifierState("CapsLock")){
-		errorText("caps lock is on, tap caps lock to turn it off");
-		// TODO: show caps lock location picture
+		errorText("CapsLock MAKES ALL LETTERS BIG. <br> Press CapsLock to turn it off, and use shift instead.");
+		// TODO: explain caps lock, the light, show picture
+		// TODO: remove caps lock error when it is turned off
 	}
 	if(event.getModifierState("NumLock")){
 		errorText("num lock is off, turn it on to type numbers with the numpad");
-		// TODO: show caps lock location picture
 	}
 }

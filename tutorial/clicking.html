@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="tutorial.css" rel="stylesheet">
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<span id="buttonsNEXT">
+		<button onclick="window.location.replace('typing.html');"> ondoka uende kwenye typing-></button><br>
+	</span>
+	<div class="right_half clicking">
+		<h2 id="title_text"></h2>
+		<p id="help_text">peleka mshale kwenye sanduku la kijani</p>
+		<p id="error_text">  </p>
+		<img id="img" class="image" src="../images/trackpad/move_cursor.gif">
+		<div id="buttons" style="{display:none}">
+			<button onclick="practice_clicked()">anza upya</button>
+			<button onclick="window.location.replace('typing.html');">kipindi kingine</button>
+		</div>
+	</div>
+
+    <script src="../third-party/js/jquery-3.3.1.min.js"></script>
+	<script src="clicking.js"></script>
+</body>
+</html>

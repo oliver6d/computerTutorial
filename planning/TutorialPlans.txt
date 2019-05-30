@@ -1,103 +1,74 @@
 (should have progress bar at bottom)
-(should have option to listen to spoken)
+(should repeat everything taught)
+(should fix "cursor" vs "mouse" terminology use)
 
-Computer:
-    Display - see what is happening
-    Mouse - selecting items (trackpad, touch screen)
-    Keyboard - enter text
+BIG TODOS:
+    explain browser
+    host on a website
+    how to deal with people deleting text after they write it - typing tutorial
+    *add more icons in start menu
+    *do settings menu
 
-    On button, Off button > turn off to save energy (power button, light bulb)
-
-REPEAT STUFF
+SMALL TODOS:
+    add pictures
+    fix test - will not pass when click on word
 
 Mouse:
-    Make example animations
-    Help text grows, not replace
-    Multiple success to move on
-    rewarding clicks - confetti?
-    Larger cursor
-    Timeout for cursor finding box
-    Color SECTION (mouse control)
-    Check for triple click
-    Game: click on falling shapes to pop
-    Lifting the mouse
-    Right Click -> prevent default? Explain?
+    Repeat everything taught
+    explain - more than one way to do many clicks
+    Coloring - should be a section, not whole screen
+    rewarding clicks - confetti? (remove color change)
+    Clicking small items
+    Teach scrolling
+    Explain right click options
+    Explain types of cursors
 
-    Holding a mouse
-    Moving
-     - don't turn
-     - lift and drag
-    Clicking
-     - don't move mouse
-     - dont click the wrong button
-     - clicking small items
-    Double Clicking
-     - speed test!
-     - give number for how fast
-    Right clicking
-    Dragging
-    Types of cursor (text, click, pointer)
+    Error checks:
+        timeout for finding box
+        check for triple click
+        right click instead of left click - move finger
 
-before game: teach mouse click
 Game: 
  - go through maze
  - avoiding obstacles
  - right click to get new element
+ - click on falling shapes to pop
 
-Keyboard:
- - explainn red underline
- - timeout for events
+Typing:
+    explain red underline
+    explain what blinking | is
+    explain text wrap
+    *SHIFT - should animate keyboard letters changing when shift is on
 
+Word Application:
+    mutliple ribbons
+    file
+    save
+    multiple tabs, insert?
 
-Typing Animation:
-    Space bar
-    Backspace
-    Enter
-    Shift (on mouse over, change display of rest of keyboard)
-    Tab
-
-Mouse & Text:
-    Highlighting
-    Blinking | where entering text
-
-Selecting folders
- - highlighted
- - from multiple
- - dragging
- - unselecting
-
-Clickables:
-    Buttons
-    Icons
-    Links
-    Menus
-
-DESKTOP:
-    how windows work
-    scrolling
-    Menus
-    account, password
-    create offline serarch results
+Desktop:
+    Desktop icons
+    Menu - applications, list of lessons
+    Right Charm - settings
+    Login - account, password, shut downn
+    //TODO: new lesson: navigating a folder
+    //TODO: ADD ICONS TO LESSON LIST - keyboard icon
+    //TODO: add "open application list" to starter tutorial
+    //TODO: add a title to the tutorial list
+    //TODO: change icon for wordpad
 
 
-MENU:
- - list of lessons so far
- - widgets (weather)
- - link to applications (email, google, )
-
-
-BROWSER:
- - address bar
- - search bar
- - bookmark
+Browser:
+    offline search results (teach how to use without internet connection)
+    address bar
+    search bar
+    bookmarks
+    tabs
+    email
 
 
 Accessibility
- - text size (not having glasses)
- - make cursor larger
- - may be used by multiple people
- - fear of breaking something
-  - mouse over for information
- - ability to save information
-
- Good newspaper
+    large text size
+    may be used by multiple people
+    fear of breaking something
+    ability to save information

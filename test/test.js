@@ -6,13 +6,10 @@ const ribbon_map = document.getElementById('ribbon_map');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d'); 
 
-//TODO: remove mouseover cheats from image map
-// TODO: add intro and explanation
-//TODO: don't highlight photo on wrong click
-//TODO: skip when wrong answer clicked
-//TODO: points for time
-//TODO: scrolling
+//TODO: add ERROR highlight when answer is wrong
+//TOFIX: pause between images so that double click does not submit wrong answer
 
+//TOFIX: if you skip, should remove event listener
 function skip_clicked(){
 	nextStage(true);
 }
@@ -29,7 +26,9 @@ function nextStage(failed){
 		section.score += 1;
 		stage.score = 1;		
 	}
-	if(stage.next){
+	if(stage.next != undefined){
+		console.log("next", section.stages, section.stages[stage.next]);
+
 		stage = section.stages[stage.next];
 		changeText(stage.text);
 		if(stage.onStart) stage.onStart();
@@ -48,16 +47,19 @@ function nextSection(newsection){
 
 	if(section.onStart) section.onStart();
 	if(section.first){
+		//console.log("stage", section.stages[section.first]);
 		stage = section.stages[section.first];
+		//console.log("staged", stage);
 		changeText(stage.text);
 		if(stage.onStart) stage.onStart();
 	}
-	startTime = new Date();
 
+	startTime = new Date();
 }
 
 function click_logo(item){
 	if (item == stage.name) nextStage();
+	else skip_clicked();
 }
 
 function contains(mouse, rect) {
@@ -106,7 +108,8 @@ var SECTIONS = {
 			single_click: {
 				name: "single clicking",
 				score: 0,
-				text: "Click on the box",
+				//text: "Click on the box",
+				text: "bonyeza kwenye sanduku",
 				next: "double_click",
 				onStart: function(){
 					canvas.addEventListener('click', function(e) {
@@ -119,7 +122,8 @@ var SECTIONS = {
 			}, double_click: {
 				name: "double clicking",
 				score: 0,
-				text: "Double click the box",
+				//text: "Double click the box",
+				text: "bonyeza mara mbili",
 				next: "right_click",
 				onStart: function(){
 					canvas.addEventListener('dblclick', function(e) {
@@ -132,7 +136,8 @@ var SECTIONS = {
 			}, right_click: {
 				name: "right clicking",
 				score: 0,
-				text: "Right click the box",
+				//text: "Right click the box",
+				text: "bonyeza upande wa kulia wa sanduku",
 				next: "drag",
 				onStart: function(){
 					canvas.addEventListener('contextmenu', function(e) {
@@ -145,7 +150,8 @@ var SECTIONS = {
 			}, drag: {
 				name: "dragging",
 				score: 0,
-				text: "Drag the box into the outlined area",
+				text: "beba sanduku",
+				//text: "Drag the box into the outlined area",
 				onStart: function(){
 					var dragging = false;
 					var dragOffset = {x:0, y:0};
@@ -189,7 +195,7 @@ var SECTIONS = {
 		name: "Typing",
 		score: 0,
 		first: "space",
-		next: "icons_section",
+		next: "finish",
 		totalTime: "",
 		onStart: function(){
 			canvas.style.display="none";
@@ -197,7 +203,8 @@ var SECTIONS = {
 		},
 		stages: {
 			space: {
-				text: 'Type the sentence "Today is a nice day."' ,
+//				text: 'Type the sentence "Today is a nice day."' ,
+				text: 'Andika sentensi hii "Leo ni siku nzuri."' ,
 				name: "space",
 				score: 0,
 				next: "capital",
@@ -210,7 +217,8 @@ var SECTIONS = {
 					});
 				},
 			}, capital: {
-				text: 'Type the sentence "Today is a nice day."' ,
+//				text: 'Type the sentence "Today is a nice day."' ,
+				text: 'Andika sentensi hii "Leo ni siku nzuri."' ,
 				name: "capital",
 				score: 0,
 				next: "backspace",
@@ -229,10 +237,11 @@ var SECTIONS = {
 					});
 				},
 			}, backspace: {
-				text: "Backspace the '.'" ,
+//				text: "Backspace the '.'" ,
+				text: "Futa sentensi" ,
 				name: "backspace",
 				score: 0,
-				next: "exclamation",
+//				next: "exclamation",
 				onStart: function(){
 					textarea.addEventListener('keyup', function(event) {
 						if(event.key == "Backspace"){
@@ -241,14 +250,16 @@ var SECTIONS = {
 						}
 					});
 				},
-			}, exclamation: {
-				text: "Type a '!'" ,
+/*			}, exclamation: {
+//				text: "Type a '!'" ,
+				text: "Andika '!'" ,
 				name: "exclamation",
 				score: 0,
 				next: "highlight",
 				onStart: function(){
 					textarea.addEventListener('keyup', function(event) {
-						if(event.key == "!"){
+						//BUG: sometimes does not pass
+						if(event.key == '!'){
 							this.removeEventListener('keyup',arguments.callee);
 							nextStage();
 						}
@@ -257,7 +268,8 @@ var SECTIONS = {
 			}, highlight: {
 				name: "highlight",
 				score: 0,
-				text: "Highlight the sentence" ,
+//				text: "Highlight the sentence" ,
+				text: "Highlight sentensi" ,
 				next: "copy",
 				onStart: function(){
 					textarea.addEventListener('click', function(){
@@ -270,7 +282,8 @@ var SECTIONS = {
 			}, copy: {
 				name: "copy & paste",
 				score: 0,
-				text: "Copy and Paste the sentence" ,
+//				text: "Copy and Paste the sentence" ,
+				text: "Rudi (Copy & Paste) sentensi" ,
 				onStart: function(){
 					textarea.addEventListener('copy', function(){
 						if(textarea.selectionStart != textarea.selectionEnd){
@@ -282,24 +295,19 @@ var SECTIONS = {
 						}
 					});
 				},
-			}
+*/			}
 		}
-	}, icons_section: {
+/*	}, icons_section: {
 		name: "Icons",
 		score: 0,
-		first: "close",
-		next: "applications_section",
+		first: "bold",
+		next: "finish",
 		onStart: function(){
 			textarea.style.display="none";
 			ribbon_map.style.display="inline";
-		},
+		}, 
 		stages: {
-			close: {
-				name: "close",
-				score: 0,
-				text: "Click the button that would close the window",
-				next: "bold",
-			}, bold: {
+			bold: {
 				name: "bold",
 				score: 0,
 				text: "Click the button that would make your text bold",
@@ -323,8 +331,14 @@ var SECTIONS = {
 				name: "save",
 				score: 0,
 				text: "Click the button that would save a file",
+//				next: "close",
+			}, close: {
+				name: "close",
+				score: 0,
+				text: "Click the button that would close the window",
 			}
 		}
+*/	/*
 	}, applications_section: {
 		name: "Apps",
 		score: 0,
@@ -339,7 +353,7 @@ var SECTIONS = {
 				name: "word",
 				score: 0,
 				text: "Click the icon to open a word document",
-				next: "excel",
+				next: "paint",
 			}, paint: {
 				name: "paint",
 				score: 0,
@@ -354,6 +368,7 @@ var SECTIONS = {
 				name: "google",
 				score: 0,
 				text: "Click the icon to a website for searching the internet",
+				next: "gmail",
 			}, gmail: {
 				name: "gmail",
 				score: 0,
@@ -363,9 +378,9 @@ var SECTIONS = {
 				name: "youtube",
 				score: 0,
 				text: "Click the icon to a website for watching videos",
-				next: "google",
 			}
 		}
+		*/
 	}, finish: {
 		name: "Total",
 		score: 0,
@@ -409,17 +424,6 @@ var SECTIONS = {
 	}
 }
 
-var section;
-var stage;
-var startTime;
-nextSection("clicking_section");
-
-var typing_scores = {
-	capitals: 0,
-	space: 0,
-	period: 0,
-	backspace: 0,
-}
 document.addEventListener('keydown', (event) => {
 	var keyname = event.key;
 	if(keyname==keyname.match("[A-Z]")){
@@ -435,3 +439,14 @@ document.addEventListener('keydown', (event) => {
 		typing_scores.backspace = 1;
 	}
 }, true);
+
+var section;
+var stage;
+var startTime;
+nextSection("clicking_section");
+var typing_scores = {
+	capitals: 0,
+	space: 0,
+	period: 0,
+	backspace: 0,
+}

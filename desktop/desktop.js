@@ -124,7 +124,6 @@ function createObjectWindow(){
     });
 }
 
-//TODO: get rid of scroll bar, propogate resize
 function createChromeWindow(){
     var index = Metro.utils.random(0, 3);
     Desktop.createWindow({
@@ -135,25 +134,78 @@ function createChromeWindow(){
         place: "center",
         clsWindow: "search",
         content: '\
-        <input class="address place-left" type="text" data-role="input" data-prepend="Website:">\
-        <input class="place-right" type="text" data-role="input" data-search-button="true">\
-        <iframe is="x-frame-bypass"  src="https://www.google.com" width="100%" height="100%"></iframe>'
+        <input id="addressbar" class="address place-left" type="text" data-role="input" data-prepend="Website:">\
+        <!-input id="searchbar" class="place-right" type="text" data-role="input" data-search-button="true"-->\
+        <iframe is="x-frame-bypass" id="frame" src="https://www.google.com" width="100%" height="100%"></iframe>',
         //TODO: should this be one combined input box?
         //TODO: add a refresh button
+        //TODO: add tabs
+        //TODO: add back button
+        onWindowCreate: function(){
+            input = document.getElementById("addressbar");
+            iframe = document.getElementById("frame");
+            input.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {   //enter
+                    //iframe.setAttribute("src", input.value);
+                    link = "http://www.google.com/search?q=" + input.value.replace(' ','+');
+                    iframe.setAttribute("src", link);
+                    /*
+                    $.ajax({
+                        type: 'HEAD',
+                        url: input.value,
+                        success: function() {
+                            iframe.setAttribute("src", input.value);
+                        },
+                        error: function() {
+                            link = "http://www.google.com/search?q=" + input.value.replace(' ','+');
+                            iframe.setAttribute("src", link);
+                        }
+                    });
+                    */
+                }
+            });
+        }
     });
 }
 
 
+//TODO: make it able to open more than one wordpad window at once
 function createWordPadWindow(){
     var index = Metro.utils.random(0, 3);
     Desktop.createWindow({
         resizable: true, draggable: true,
-        width: 800, height: 500,
+        width: 600, height: 400,
         icon: "<span class='mif-question'></span>",
         title: "Word Processor",
         place: "center",
         clsWindow: "wordpad",
-        content: '<object type="text/html" data="wordpad.html" width="100%" height="100%">'
+        content: '\
+<nav data-role="ribbonmenu">\
+    <ul class="tabs-holder">\
+        <li><a href="#home-section">Home</a></li>\
+    </ul>\
+    <div class="content-holder">\
+    <div class="section" id="home-section">\
+        <div class="group" id="file_group" style="display:none;"><span class="title">File</span></div>\
+        <div class="group" id="edit_group" style="display:none;"><span class="title">Edit</span></div>\
+        <div class="group" id="font_group" style="display:none;"><span class="title">Font</span></div>\
+        <div class="group" id="paragraph_group" style="display:none;"><span class="title">Paragraph</span></div>\
+        <div class="group" id="insert_group" style="display:none;"><span class="title">Insert</span></div>\
+    </div>\
+    </div>\
+</nav>\
+<textarea id="area1" data-role="textarea" data-clear-button="false"></textarea>\
+',
+        onWindowCreate: function(){
+            myNicEditor = new nicEditor().panelInstance('area1');
+            ribbon = myNicEditor.nicPanel;
+            textarea = document.getElementById("textarea");
+            textarea.innerHTML = "Let's learn how to use a word processor. <br> Start by typing some more text:";
+            textarea.addEventListener('blur', function(){
+                textarea.focus();
+            });
+            nextStage();
+        }
     });
 }
 
@@ -218,11 +270,13 @@ function openFirstWindow(){
         clsWindow: 'firstWindow',
         place:"center",
         onDragMove: (e)=>{
+            //TODO: make drag further
             if (step == 0){ step++;
                 $('.firstWindow .window-content div').text('Now resize by dragging the green corner ◢');
             }
         },
         onResize: (e)=>{
+            //TODO: make resize more
             if (step == 1){ step++
                 $('.firstWindow .window-caption .buttons').append('<span class="button btn-max sys-button"></span>');
                 $('.firstWindow .window-content div').text('Make the window full screen by clicking the box 🗖');
@@ -253,9 +307,11 @@ const TUTORIAL = {
     welcome1: {
         title: "Welcome to the desktop",
         content: "<div>(click ok to continue)</div>",
+    /*
         nextDial: ()=>{ openDialog("welcome2"); }
     }, welcome2: {
         title: " This is where you view apps",
+    */
         nextDial: ()=>{ openFirstWindow(); }
     }, welcome3: {
         title: "Your First Window",
@@ -269,7 +325,7 @@ function openCharm() {
 
 
 
-
+//TODO: uncommet
 Desktop.setup();
-//Desktop.goFullscreen();
-//openDialog("welcome1");
+Desktop.goFullscreen();
+openDialog("welcome1");

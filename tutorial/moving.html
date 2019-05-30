@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link href="tutorial.css" rel="stylesheet">
+</head>
+<body>
+	<canvas id="myCanvas">Please use a different internet browser.</canvas>
+	<div class="moving">
+		<h1> Move the cursor to <br> color the entire screen </h1>
+		<img class="gif" src="../images/trackpad/move_cursor.gif">
+	</div>
+
+    <script src="../third-party/js/jquery-3.3.1.min.js"></script>
+	<script>
+		var mouse = {x: 0, y: 0};
+		var amountColored = 0;
+		var canvas = document.getElementById('myCanvas');
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		var ctx = canvas.getContext('2d');
+		ctx.lineWidth = 80;
+		ctx.lineJoin = 'round';
+		ctx.lineCap = 'round';
+
+		/* navigator.getBattery().then(function(battery) {
+		    if (battery.charging && battery.chargingTime === 0) {
+		        console.log("I'm a desktop")
+		    } else {
+		        console.log("I'm not a desktop")
+		    }
+		}); */
+
+		$(document).ready(function(){
+			ctx.moveTo(mouse.x, mouse.y);
+			ctx.beginPath();
+		});
+		canvas.addEventListener('mousemove', function(e) {
+			x = mouse.x;  mouse.x = e.pageX - this.offsetLeft;
+			y = mouse.y;  mouse.y = e.pageY - this.offsetTop;
+			amountColored += Math.abs(x - mouse.x) / 20;
+			amountColored += Math.abs(y - mouse.y) / 20;
+			ctx.strokeStyle ="hsl("+ amountColored % 360 + ",80%,50%)"
+			ctx.lineTo(mouse.x, mouse.y);
+			ctx.stroke();
+			ctx.beginPath();
+			if (percentColored() > 0.75){
+				finish();
+			}
+			}, false);
+
+
+		function percentColored(){
+			var nColored = 0;
+			var p = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+			for (var y = 0, i =0 ; y < canvas.height; y+=100, i+=400*canvas.width){
+			    for (var x = 0; x < canvas.width; x+=100, i+=400){ //each pixel is 4, sample every 100x100 square
+			        if (p[i+3]) {
+					   nColored++;
+					}
+			    }
+			}
+	        return nColored*10000/x/y;
+	    }
+
+	    function finish(){
+	    	window.location.replace("clicking.html");
+	    }
+
+	    /*TODO: 
+	    	Add a timer that offers help
+	    	Delay before color
+	    */
+	</script>
+</body>
+</html>            

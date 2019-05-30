@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link href="../third-party/metro/css/metro-all.min.css" rel="stylesheet">
+    <link href="desktop.css" rel="stylesheet">
+    <style>
+    	html, body{
+    		height:100%;
+    		display: flex;
+    		flex-direction: column;
+    		overflow: hidden;
+    	}
+        .textarea{
+            flex: 1;
+        	overflow-y: scroll;
+        }
+        /* TODO: scrolling */;
+    </style>
+</head>
+<body>
+	<nav data-role="ribbonmenu">
+		<ul class="tabs-holder">
+		    <li class="static"><a href="#">File</a></li>
+		    <li><a href="#home-section">Home</a></li>
+		    <li><a href="#layout-section">Layout</a></li>
+		    <li><a href="#view-section">View</a></li>
+		</ul>
+
+		<div class="content-holder">
+		    <div class="section" id="home-section">
+		    	<div class="group">
+	                <button class="ribbon-tool-button">
+	                    <span class="icon"> <span class="mif-undo"></span> </span>
+	                </button>
+
+	                <button class="ribbon-tool-button">
+	                    <span class="icon"> <span class="mif-redo"></span> </span>
+	                </button>
+
+	                <button class="ribbon-tool-button">
+	                    <span class="icon"> <span class="mif-floppy-disk"></span> </span>
+	                </button>
+
+	                <span class="title">File</span>
+	            </div>
+	            <div class="group">
+	                <!--button class="ribbon-button">
+	                    <span class="icon"> <span class="mif-clipboard"></span> </span>
+	                    <span class="caption">Paste</span>
+	                </button-->
+
+	                <button class="ribbon-tool-button">
+	                    <span class="icon"> <span class="mif-paste"></span> </span>
+	                </button>
+
+	                <button class="ribbon-tool-button">
+	                    <span class="icon"> <span class="mif-copy"></span> </span>
+	                </button>
+
+	                <button class="ribbon-tool-button">
+	                    <span class="icon"> <span class="mif-cut"></span> </span>
+	                </button>
+
+	                <span class="title">Clipboard</span>
+	            </div>
+		        <div class="group" id="insert_group" style="display:none;">
+		            <span class="title">Insert</span>
+	                <button class="ribbon-tool-button">
+	                    <span class="icon"> <span class="mif-table"></span> </span>
+	                </button>
+
+	                <button class="ribbon-tool-button">
+	                    <span class="icon"> <span class="mif-page-break"></span> </span>
+	                </button>
+		        </div>
+		        <div class="group" id="file_group" style="display:none;">
+		            <span class="title">File</span>
+		        </div>
+		        <div class="group" id="font_group" style="display:none;">
+		            <span class="title">Font</span>
+		        </div>
+
+		        <div class="group" id="paragraph_group" style="display:none;">
+		            <!--button class="ribbon-button">
+		                <span class="icon"> <span class="mif-pilcrow"></span> </span>
+		                <span class="caption">Paragraph</span>
+		            </button-->
+		            <span class="title">Paragraph</span>
+		        </div>
+	        </div>
+	        <div class="section" id="layout-section">
+	            <p class="p-4">Section three</p>
+	        </div>
+	        <div class="section" id="view-section">
+	            <p class="p-4">Section two</p>
+	        </div>
+		</div>
+	</nav>
+
+	<textarea id="area1" data-role="textarea" data-clear-button="false"></textarea>
+
+        <!-- MIGHT NEED
+        	crop
+        	cross
+        	enlarge
+        	enlarge2
+        	eyedropper
+        	floppy-disk
+        	image
+        	images
+        	language
+
+        	--->
+
+        <!-- NEED TO FIND ICON
+        	line spacing
+        	fill can
+			font color
+			find & replace
+			font
+			size up
+			size down
+			size dropdown
+			highlight
+
+        -->
+    <script src="../third-party/js/jquery-3.3.1.min.js"></script>
+	<script src="../third-party/nicEdit.js"></script>
+    <script src="../third-party/metro/js/metro.min.js"></script>
+    <script src="wordpad.js"></script>
+    <script src="desktop.js"></script>
+
+</body>
+</html>

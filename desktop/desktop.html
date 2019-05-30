@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="author" content="Olive Miller">
-    <link rel="shortcut icon" href="help.ico" type="image/x-icon">
-    <link rel="icon" href="help.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/help.ico" type="image/x-icon">
+    <link rel="icon" href="../images/help.ico" type="image/x-icon">
     <link href="../third-party/metro/css/metro-all.min.css" rel="stylesheet">
     <link href="desktop.css" rel="stylesheet">
     <link href="icons.css" rel="stylesheet">
@@ -16,29 +16,13 @@
     <div data-role="charms" data-position="right" id="charm" class="p-4">
         <div class="h-100 d-flex flex-column">
             <div class="charm-top">
-                <div class="text-center m-4">
-                    <span> Notifications </span>
-                </div>
                 <div class="charm-notify">
                     <span class="icon mif-info"></span>
-                    <div class="title">Welcome</div>
-                    <div class="content">This sidebar will give you notifications and let you make changes to your computer.</div>
+                    <div class="content">Below, you can make changes to your computer settings</div>
                 </div>
-
-                <!-- TODO: this does nothing
-                <div class="clear mt-4 reduce-1">
-                    <span class="place-left c-pointer">Collapse</span>
-                    <span class="place-right c-pointer">Clear notifications</span>
-                </div-->
-
             </div>
-
             <div class="charm-bottom mt-auto">
                 <div class="d-flex">
-                    <div class="charm-tile">
-                        <span class="icon mif-tablet-landscape"></span>
-                        <span class="caption">Tablet mode</span>
-                    </div>
                     <div class="charm-tile">
                         <span class="icon mif-wifi-full"></span>
                         <span class="caption">Network</span>
@@ -46,10 +30,6 @@
                     <div class="charm-tile">
                         <span class="icon mif-cog"></span>
                         <span class="caption">Settings</span>
-                    </div>
-                    <div class="charm-tile active">
-                        <span class="icon mif-bluetooth"></span>
-                        <span class="caption">Not connected</span>
                     </div>
                 </div>
             </div>
@@ -60,11 +40,11 @@
         <div class="window-area">
             <ul data-role="listview" data-view="icons" class="file-area">
                 <li data-icon="<span class='file-pic'>" data-caption="setup.exe" data-role="draggable" ></li>
-                <li data-icon="<span class='image-pic'>" data-caption="Video" data-role="draggable" ></li>
-                <li data-icon="<span class='file-document-pic'>" data-caption="desktop.ini" data-role="draggable" ></li>
-                <li data-icon="<span class='empty-folder-pic'>" data-caption="Video" data-role="draggable" ></li>
-                <li data-icon="<span class='folder-pic'>" data-caption="desktop.ini" data-role="draggable" ></li>
-                <li data-icon="<span class='file-image-pic'>" data-caption="desktop.ini" data-role="draggable" ></li>
+                <li data-icon="<span class='image-pic'>" data-caption="picture.png" data-role="draggable" ></li>
+                <li data-icon="<span class='file-document-pic'>" data-caption="text.doc" data-role="draggable" ></li>
+                <li data-icon="<span class='empty-folder-pic'>" data-caption="documents" data-role="draggable" ></li>
+                <!--li data-icon="<span class='folder-pic'>" data-caption="desktop.ini" data-role="draggable" ></li>
+                <li data-icon="<span class='file-image-pic'>" data-caption="desktop.ini" data-role="draggable" ></li-->
             </ul>
         </div>
         <div class="task-bar">
@@ -74,20 +54,33 @@
                     <div class="start-menu-inner h-100">
                         <div class="explorer">
                             <ul class="v-menu w-100 bg-brandColor2 fg-white">
-                                <li><a onclick="createOptionsWindow()"> window options </a></li>
-                                <li><a onclick="createObjectWindow()"> window object</a></li>
+
+                                <!-- THIS IS WHERE THE TUTORIAL LIST IS -->
+                                
+                                <li data-icon="<span class='mif-checkmark'>">
+                                    <a onclick="window.location.replace('../test/test.html');"> Take the abilities test </a>
+                                </li>
+                                <li data-icon="<span class='mouse-pic'>">
+                                    <a onclick="window.location.replace('../tutorial/clicking.html');"> How to use the trackpad </a>
+                                </li>
+                                <li data-icon="<span class='mif-keyboard'>">
+                                    <a onclick="window.location.replace('../tutorial/typing.html');"> How to use a keyboard </a>
+                                </li>
+                                <li data-icon="<span class='window-pic'>">
+                                    <a onclick="openFirstWindow()"> How to use a window </a>
+                                </li>                 
+                                <li data-icon="<span class='window-pic'>">
+                                    <a onclick="createWordPadWindow()"> How to edit text </a>
+                                </li>                                
                             </ul>
                         </div>
                         <div class="tiles-grid tiles-group size-2" data-group-title="General">
-                            <a data-role="tile" class="bg-indigo"
-                                    href="https://github.com/olton/Metro-UI-CSS">
-                                <span class="mif-github icon"></span>
-                                <span class="branding-bar">Github</span>
-                                <span class="badge-bottom">30</span>
-                            </a>
+
+                            <!-- THIS IS WHERE APPLICATIONS ARE -->
+
                             <a data-role="tile" class="bg-cyan"
                                 onclick="createWordPadWindow()">
-                                <span class="mif-envelop icon"></span>
+                                <span class="mif-file-text icon"></span>
                                 <span class="branding-bar">WordPad</span>
                                 <span class="badge-bottom">10</span>
                             </a>
@@ -135,8 +128,10 @@
 <!-- TODO: THIS NEEDS THE INTERNET FIX IT-->
     <script type="module" src="https://unpkg.com/x-frame-bypass"></script>
     <script src="../third-party/js/jquery-3.3.1.min.js"></script>
+    <script src="../third-party/nicEdit.js"></script>
     <script src="../third-party/metro/js/metro.min.js"></script>
     <script src="desktop.js"></script>
+    <script src="wordpad.js"></script>
     <!-- ads-script -->
 </body>
 </html>

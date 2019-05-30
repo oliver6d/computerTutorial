@@ -6,14 +6,17 @@
 </head>
 <body>
 	<textarea class="left_half" placeholder="Click here to write text"></textarea>
-
+	<span id="buttonsNEXT">
+		<button onclick="window.location.replace('clicking.html');"><- Back to Clicking</button>
+		<button onclick="window.location.replace('../desktop/desktop.html');">Skip to Desktop -></button>
+	</span>
 	<div class="right_half typing">
 		<h2 id="title_text"></h2>
 		<p id="help_text"></p>
 		<p id="error_text"></p>
 		<div id="buttons">
-			<button onclick="practice_clicked()">Practice</button>
-			<button onclick="continue_clicked()">Next</button>
+			<button onclick="practice_clicked()">Start Over</button>
+			<button onclick="window.location.replace('../desktop/desktop.html');">Next Lesson</button>
 		</div>
 		<div class="image">
 			<img id="keyboard_img">

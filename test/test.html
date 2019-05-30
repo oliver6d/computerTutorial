@@ -14,30 +14,39 @@
 	
 	<textarea class="right_half" placeholder="Click here to write text" style="display:none"></textarea>
 
+	<!--TODO: remove cheat alt text from all -->
+	<!--TOFIX: make image not highlighted when click on wrong thing -->
 
 	<span class="right_half" id="ribbon_map" style="display:none">
 		<img src="../images/ribbon_test.png" usemap="#ribbon-map">
 		<map name="ribbon-map">
-		    <area title="undo" coords="8,90,39,118" onclick="click_logo(this.title)">
-		    <area title="redo" coords="41,90,69,118" onclick="click_logo(this.title)">
-		    <area title="save" coords="71,90,95,118" onclick="click_logo(this.title)">
-		    <area title="paste" coords="110,90,138,118" onclick="click_logo(this.title)">
-		    <area title="copy" coords="140,90,165,118" onclick="click_logo(this.title)">
-		    <area title="cut" coords="167,90,195,118" onclick="click_logo(this.title)">
-		    <area title="font" coords="213,90,326,118" onclick="click_logo(this.title)">
-		    <area title="size" coords="335,90,388,118" onclick="click_logo(this.title)">
-		    <area title="bold" coords="208,125,235,150" onclick="click_logo(this.title)">
-		    <area title="italic" coords="237,125,262,150" onclick="click_logo(this.title)">
-		    <area title="underline" coords="265,125,292,150" onclick="click_logo(this.title)">
-		    <area title="strikethrough" coords="297,125,320,150" onclick="click_logo(this.title)">
-		    <area title="color" coords="340,125,391,150" onclick="click_logo(this.title)">
+		    <area title="undo" coords="8,90,39,118" onclick="click_logo(this.title)" alt=" ">
+		    <area title="redo" coords="41,90,69,118" onclick="click_logo(this.title)" alt=" ">
+		    <area title="save" coords="71,90,95,118" onclick="click_logo(this.title)" alt=" ">
+		    <area title="paste" coords="110,90,138,118" onclick="click_logo(this.title)" alt=" ">
+		    <area title="copy" coords="140,90,165,118" onclick="click_logo(this.title)" alt=" ">
+		    <area title="cut" coords="167,90,195,118" onclick="click_logo(this.title)" alt=" ">
+		    <area title="font" coords="213,90,326,118" onclick="click_logo(this.title)" alt=" ">
+		    <area title="size" coords="335,90,388,118" onclick="click_logo(this.title)" alt=" ">
+		    <area title="bold" coords="208,125,235,150" onclick="click_logo(this.title)" alt=" ">
+		    <area title="italic" coords="237,125,262,150" onclick="click_logo(this.title)" alt=" ">
+		    <area title="underline" coords="265,125,292,150" onclick="click_logo(this.title)" alt=" ">
+		    <area title="strikethrough" coords="297,125,320,150" onclick="click_logo(this.title)" alt=" ">
+		    <area title="color" coords="340,125,391,150" onclick="click_logo(this.title)" alt=" ">
 
-		    <area title="center" coords="450,90,480,118" onclick="click_logo(this.title)">	    
-		    <area title="bullet" coords="450,125,480,150" onclick="click_logo(this.title)">	    
-		    <area title="number" coords="425,125,448,150" onclick="click_logo(this.title)">
-		    <area title="minimize" coords="420,10,460,40" onclick="click_logo(this.title)">
-		    <area title="maximize" coords="465,10,500,40" onclick="click_logo(this.title)">
-		    <area title="close" coords="505,10,540,40" onclick="click_logo(this.title)">
+		    <area title="left" coords="410,90,433,118" onclick="click_logo(this.title)" alt=" ">    
+		    <area title="center" coords="435,90,465,118" onclick="click_logo(this.title)" alt=" ">	    
+		    <area title="right" coords="460,90,480,118" onclick="click_logo(this.title)" alt=" ">	    
+		    <area title="justify" coords="485,90,520,118" onclick="click_logo(this.title)" alt=" ">
+		    	
+		    <area title="number" coords="410,125,433,150" onclick="click_logo(this.title)" alt=" ">    
+		    <area title="bullet" coords="435,125,465,150" onclick="click_logo(this.title)" alt=" ">	    
+		    <area title="indent" coords="460,125,480,150" onclick="click_logo(this.title)" alt=" ">	    
+		    <area title="dedent" coords="485,125,520,150" onclick="click_logo(this.title)" alt=" ">
+
+		    <area title="minimize" coords="405,10,445,40" onclick="click_logo(this.title)" alt=" ">
+		    <area title="maximize" coords="450,10,485,40" onclick="click_logo(this.title)" alt=" ">
+		    <area title="close" coords="490,10,525,40" onclick="click_logo(this.title)" alt=" ">
 		</map>
 	</span>
 
@@ -45,22 +54,22 @@
 	<span class="right_half" id="logo_map" style="display:none">
 		<img src = "../images/logos_test.png" usemap="#map-for-logo"/>
 		<map name="map-for-logo">
-		    <area title="excel" coords="8,8,88,88" onclick="click_logo(this.title)">
-		    <area title="powerpoint" coords="104,8,184,88" onclick="click_logo(this.title)">
-		    <area title="word" coords="200,8,280,88" onclick="click_logo(this.title)">
-		    <area title="facebook" coords="296,8,376,88" onclick="click_logo(this.title)">
-		    <area title="chrome" coords="8,104,88,184" onclick="click_logo(this.title)">
-		    <area title="gmail" coords="104,104,184,184" onclick="click_logo(this.title)">
-		    <area title="translate" coords="200,104,280,184" onclick="click_logo(this.title)">
-		    <area title="wiki"  coords="296,104,376,184" onclick="click_logo(this.title)">
-		    <area title="calculator" coords="8,200,88,280" onclick="click_logo(this.title)">
-		    <area title="paint" coords="104,200,184,280" onclick="click_logo(this.title)">
-		    <area title="file" coords="200,200,280,280" onclick="click_logo(this.title)">
-		    <area title="google" coords="296,200,376,280" onclick="click_logo(this.title)">
-		    <area title="windows" coords="8,296,88,376" onclick="click_logo(this.title)">
-		    <area title="settings" coords="104,296,184,376" onclick="click_logo(this.title)">
-		    <area title="image" coords="200,296,280,376" onclick="click_logo(this.title)">
-		    <area title="youtube" coords="296,296,376,376" onclick="click_logo(this.title)">
+		    <area title="excel" coords="8,8,88,88" onclick="click_logo(this.title)" alt=" ">
+		    <area title="powerpoint" coords="104,8,184,88" onclick="click_logo(this.title)" alt=" ">
+		    <area title="word" coords="200,8,280,88" onclick="click_logo(this.title)" alt=" ">
+		    <area title="facebook" coords="296,8,376,88" onclick="click_logo(this.title)" alt=" ">
+		    <area title="chrome" coords="8,104,88,184" onclick="click_logo(this.title)" alt=" ">
+		    <area title="gmail" coords="104,104,184,184" onclick="click_logo(this.title)" alt=" ">
+		    <area title="translate" coords="200,104,280,184" onclick="click_logo(this.title)" alt=" ">
+		    <area title="wiki"  coords="296,104,376,184" onclick="click_logo(this.title)" alt=" ">
+		    <area title="calculator" coords="8,200,88,280" onclick="click_logo(this.title)" alt=" ">
+		    <area title="paint" coords="104,200,184,280" onclick="click_logo(this.title)" alt=" ">
+		    <area title="file" coords="200,200,280,280" onclick="click_logo(this.title)" alt=" ">
+		    <area title="google" coords="296,200,376,280" onclick="click_logo(this.title)" alt=" ">
+		    <area title="windows" coords="8,296,88,376" onclick="click_logo(this.title)" alt=" ">
+		    <area title="settings" coords="104,296,184,376" onclick="click_logo(this.title)" alt=" ">
+		    <area title="image" coords="200,296,280,376" onclick="click_logo(this.title)" alt=" ">
+		    <area title="youtube" coords="296,296,376,376" onclick="click_logo(this.title)" alt=" ">
 		</map>
 	</span>
 
