@@ -151,7 +151,7 @@ const STAGES = {
 		//		At the same time, move the cursor with your right hand." ,
 		title: "beba sanduku",
 		help_text: "tumia mkono wa kushoto kubonyeza kwenye kona ya upande wa kushoto. <br> \
-				kwa muda huohuo,peleka mshale kwa kutumia mkono wa kulia." ,
+				kwa muda huohuo, peleka mshale kwa kutumia mkono wa kulia." ,
 		img: "../images/trackpad/click_drag.gif",
 		next: "next",
 		num_left: 3,
@@ -235,7 +235,7 @@ canvas.addEventListener('click', function(e) {
 		if (drag_distance > 120){
 			stage_success = false;
 //			errorText("That was dragging. Do not move while clicking.");
-			errorText("hiyo ilikuwa kubeba.usisogeze ukiwa unabonyeza.");
+			errorText("hiyo ilikuwa kubeba. usisogeze ukiwa unabonyeza.");
 		} else if (drag_distance > 75){
 			stage_success = false;
 //			errorText("Do not move your cursor while clicking");
@@ -262,7 +262,7 @@ canvas.addEventListener('click', function(e) {
 			if(drag_distance > 200){
 				stage_success = false;
 //				errorText("You must hold the button down while dragging.  Press with your left finger while using your other hand to move.");
-				errorText("uatakiwa ushikilie kitufe wakati unabeba.bonyeza kwa kutumia kidole cha kushoto wakati mkono mwingine unasogeza.");
+				errorText("uatakiwa ushikilie kitufe wakati unabeba. bonyeza kwa kutumia kidole cha kushoto wakati mkono mwingine unasogeza.");
 			}
 		}, 750);
 	}

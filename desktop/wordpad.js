@@ -215,7 +215,7 @@ const STAGES = {
 		},
 	}, dropdown_dialog: {
 		dialog: "This is a dropdown. Click once to open it, and click again to select something.",
-		//dialog_image: "../images/animation/dropdown.gif",
+		dialog_image: "../images/animation/dropdown.gif",
 		next: "font",
 	}, font: {
 		help_text: "Change the way text looks by clicking font",
