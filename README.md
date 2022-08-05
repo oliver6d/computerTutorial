@@ -3,6 +3,10 @@ Olivia Miller
 Website tutorial for how to use computers
 Developing a guided interface to mitigate computer illiteracy
 
+HOW TO USE
+No backend needs to be ran locally, since everything is based in html & javascript.
+start from tutorial/clicking.html or desktop/desktop.html
+
 
 ABSTRACT
 As technology becomes more prevalant in the world, it is easy to forget that there still exist people who have never used a computer before.  
